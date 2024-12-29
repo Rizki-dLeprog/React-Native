@@ -1,0 +1,20 @@
+Run di terminal Vs code!# Membuat folder sesuai Clean Architecture
+New-Item -Path src -ItemType Directory
+New-Item -Path src\domain -ItemType Directory
+New-Item -Path src\domain\usecases -ItemType Directory
+New-Item -Path src\data -ItemType Directory
+New-Item -Path src\data\repositories -ItemType Directory
+New-Item -Path src\presentation -ItemType Directory
+New-Item -Path src\presentation\components -ItemType Directory
+New-Item -Path src\presentation\hooks -ItemType Directory
+New-Item -Path src\services -ItemType Directory
+New-Item -Path src\utils -ItemType Directory
+
+# Membuat file kosong
+New-Item -Path src\domain\usecases\WelcomeUseCase.ts -ItemType File
+New-Item -Path src\data\repositories\UserRepository.ts -ItemType File
+New-Item -Path src\presentation\components\SimpleStateExample.tsx -ItemType File
+New-Item -Path src\presentation\hooks\useWelcome.ts -ItemType File
+New-Item -Path src\services\ApiService.ts -ItemType File
+New-Item -Path src\utils\formatDate.ts -ItemType File
+
