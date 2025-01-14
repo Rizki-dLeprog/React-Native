@@ -1,0 +1,52 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17 (required for Android build)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Grant execute permission to gradlew
+        run: chmod +x android/gradlew
+
+      - name: Run Gradle clean
+        run: |
+          cd android
+          ./gradlew clean --stacktrace
+
+      - name: Check autolinking.json existence
+        run: |
+          if [ ! -f "android/build/generated/autolinking/autolinking.json" ]; then
+            echo "Error: autolinking.json not found!"
+            exit 1
+          else
+            echo "autolinking.json found successfully."
+          fi
+
+      - name: Output contents of autolinking.json
+        run: |
+          cat android/build/generated/autolinking/autolinking.json
